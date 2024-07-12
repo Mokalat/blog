@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main</title>
+    <link rel="stylesheet" th:href="@{/css/font.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <script th:src="@{/js/login.js}"></script>
+</head>
+
+<body>
+    <div class="index_back_img">
+        <div class="index_search_box">
+            <form th:action="@{/login}" method="post">
+                <div sec:authorize="hasAnyAuthority('USER')">
+
+                </div>
+                <div class="movie_search">
+                    <input type="text" name="username" placeholder="ID : 우승엽 바보 아이디">
+                </div>
+                <div class="movie_search password">
+                    <input type="password" name="password" placeholder="PW : 송재희 빨리해라">
+                </div>
+                <div class="Df_JC">
+
+                        <button type="submit" class="enter_btn">로그인 하기</button>
+
+                </div>
+            </form>
+            <div style="margin-top: 10px">
+                <a href="#">회원가입</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
