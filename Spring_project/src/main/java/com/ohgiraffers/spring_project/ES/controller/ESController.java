@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -161,5 +162,13 @@ public class ESController {
     @ResponseBody
     public List<GameDTO> getAllGames() {
         return gameService.getAllGames();
+    }
+
+
+
+    @PostMapping("/game/{id}/like")
+    public ResponseEntity<Void> likeGame(@PathVariable Long id) {
+        gameService.incrementLikes(id);
+        return ResponseEntity.ok().build();
     }
 }

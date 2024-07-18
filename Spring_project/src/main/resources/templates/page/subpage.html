@@ -14,11 +14,14 @@
 <header class="header_Lee">
   <nav class="header_nav_Lee ">
     <ul>
-<!--      <li><a href="#" data-category="SeungYeop" id="SeungYeopLink">승엽</a></li>-->
-<!--      <li><a href="#" data-category="DaYoung" id="DaYoungLink">다영</a></li>-->
-<!--      <li><a href="#" data-category="JaeHee" id="JaeHeeLink">재희</a></li>-->
-<!--      <li><a href="#" data-category="HaYoung" id="HaYoungLink">하영</a></li>-->
       <li><a href="#" data-category="EunSeok" id="EunSeokLink">은석</a></li>
+      <li><p>안녕하세요, <span th:text="${#authentication.name}">사용자</span>님!</p></li>
+      <li th:if="${#authentication.principal != null}">
+        <a href="#" class="btn btn-primary" id="logoutButton">로그아웃</a>
+      </li>
+      <li th:if="${#authentication.principal == null}">
+        <a href="/login" class="btn btn-primary">로그인</a>
+      </li>
     </ul>
   </nav>
 </header>
@@ -45,4 +48,29 @@
   </div>
 </footer>
 </body>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // ... 기존 코드 ...
+
+    // 로그아웃 버튼 클릭 이벤트
+    document.getElementById('logoutButton').addEventListener('click', function (event) {
+      event.preventDefault();
+      fetch('/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: '_csrf=${_csrf.token}' // CSRF 토큰을 포함해야 할 경우
+      })
+              .then(response => {
+                if (response.ok) {
+                  window.location.href = '/'; // 로그아웃 후 메인 페이지로 리디렉션
+                } else {
+                  console.error('Failed to logout');
+                }
+              })
+              .catch(error => console.error('Error:', error));
+    });
+  });
+</script>
 </html>

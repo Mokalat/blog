@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
             <div class="Df Df_AC">
                 <img src="/img/comment.svg" alt="" class="W16H16">
-                <p class="font13">${data.esaccessor}</p>
+                <p class="font13">${data.likes}</p>
             </div>
         </div>
     `;

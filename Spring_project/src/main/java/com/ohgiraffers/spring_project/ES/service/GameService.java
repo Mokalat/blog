@@ -55,4 +55,10 @@ public class GameService {
         }
         return 1; // 기본 페이지 번호
     }
+
+    public void incrementLikes(Long id) {
+        GameEntity game = gameRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid game Id:" + id));
+        game.setLikes(game.getLikes() + 1);
+        gameRepository.save(game);
+    }
 }

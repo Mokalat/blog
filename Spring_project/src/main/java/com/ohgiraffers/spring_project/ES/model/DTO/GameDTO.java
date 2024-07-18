@@ -13,6 +13,7 @@ public class GameDTO {
     private String esmetacritic;
     private String esaccessor;
     private String esimageurl;
+    private int likes;
 
     public GameDTO() {
     }
@@ -28,6 +29,7 @@ public class GameDTO {
         this.esmetacritic = entity.getEsmetacritic();
         this.esaccessor = entity.getEsaccessor();
         this.esimageurl = entity.getEsimageurl();
+        this.likes = entity.getLikes();
     }
 
     public GameEntity toEntity() {
@@ -42,6 +44,7 @@ public class GameDTO {
         entity.setEsmetacritic(this.esmetacritic);
         entity.setEsaccessor(this.esaccessor);
         entity.setEsimageurl(this.esimageurl);
+        entity.setLikes(this.likes);
         return entity;
     }
 
@@ -126,19 +129,11 @@ public class GameDTO {
         this.esimageurl = esimageurl;
     }
 
-    @Override
-    public String toString() {
-        return "GameDTO{" +
-                "id=" + id +
-                ", estitle='" + estitle + '\'' +
-                ", essubtitle='" + essubtitle + '\'' +
-                ", esgenre='" + esgenre + '\'' +
-                ", escountry='" + escountry + '\'' +
-                ", esduration='" + esduration + '\'' +
-                ", esissue='" + esissue + '\'' +
-                ", esmetacritic='" + esmetacritic + '\'' +
-                ", esaccessor='" + esaccessor + '\'' +
-                ", esimageurl='" + esimageurl + '\'' +
-                '}';
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 }

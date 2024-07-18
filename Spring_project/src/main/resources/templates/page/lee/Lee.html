@@ -12,6 +12,7 @@
 </head>
 <body class="bodyBack_Lee">
 <div th:replace="~{header/header :: header}"></div>
+
 <section class="section_Lee">
     <div class="W100_Lee">
         <div class="W100_Lee">
@@ -29,7 +30,7 @@
                         <p class="ml10_Color">2024-06-20</p>
                     </div>
                     <div class="Color">
-                        <a th:href="@{/subpage}" >돌아가기</a>
+                        <a th:href="@{/subpage}">돌아가기</a>
                     </div>
                 </div>
             </div>
@@ -49,7 +50,7 @@
             </div>
             <div class="body">
                 <div class="body_img_box">
-                    <img class="body_img_demon" th:src="@{${game.esimageurl}}" alt="게임 이미지">
+                    <img class="body_img_demon" th:src="${game.esimageurl}" alt="게임 이미지">
                 </div>
             </div>
             <div class="footer">
@@ -75,11 +76,14 @@
                     </div>
                 </div>
                 <div>
-                    <a th:href="@{/eunseok/game/{id}(id=${game.id})}">수정</a>
-                    <form th:action="@{/eunseok/game/{id}/delete(id=${game.id})}" method="post" style="display:inline;">
+                    <a class="edit-link" data-id="${game.id}">수정</a>
+                    <form class="delete-form" method="post" style="display:inline;">
                         <input type="hidden" name="_method" value="DELETE" />
                         <button type="submit">삭제</button>
                     </form>
+                </div>
+                <div>
+                    <button class="like-button" data-id="${game.id}">좋아요 (<span th:text="${game.likes}">0</span>)</button>
                 </div>
             </div>
         </div>
@@ -88,5 +92,37 @@
         <a th:href="@{/eunseok/game/new}">새 게임 추가</a>
     </div>
 </section>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.edit-link').forEach(link => {
+            const gameId = link.getAttribute('data-id');
+            link.setAttribute('href', `/eunseok/game/${gameId}`);
+        });
+
+        document.querySelectorAll('.delete-form').forEach(form => {
+            const gameId = form.previousElementSibling.getAttribute('data-id');
+            form.setAttribute('action', `/eunseok/game/${gameId}/delete`);
+        });
+
+        document.querySelectorAll('.like-button').forEach(button => {
+            button.addEventListener('click', function () {
+                const gameId = this.getAttribute('data-id');
+                fetch(`/eunseok/game/${gameId}/like`, {
+                    method: 'POST'
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            const likeCountSpan = this.querySelector('span');
+                            likeCountSpan.textContent = parseInt(likeCountSpan.textContent) + 1;
+                            this.disabled = true; // 한 사람당 한 번만 누를 수 있도록 버튼 비활성화
+                        } else {
+                            console.error('Failed to like the game');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        });
+    });
+</script>
 </body>
 </html>

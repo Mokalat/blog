@@ -37,9 +37,13 @@ public class GameEntity {
     @Column(name = "esimageurl")
     private String esimageurl;
 
+    @Column(name = "likes")
+    private int likes;
+
     public GameEntity() {
     }
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -120,19 +124,11 @@ public class GameEntity {
         this.esimageurl = esimageurl;
     }
 
-    @Override
-    public String toString() {
-        return "GameEntity{" +
-                "id=" + id +
-                ", estitle='" + estitle + '\'' +
-                ", essubtitle='" + essubtitle + '\'' +
-                ", esgenre='" + esgenre + '\'' +
-                ", escountry='" + escountry + '\'' +
-                ", esduration='" + esduration + '\'' +
-                ", esissue='" + esissue + '\'' +
-                ", esmetacritic='" + esmetacritic + '\'' +
-                ", esaccessor='" + esaccessor + '\'' +
-                ", esimageurl='" + esimageurl + '\'' +
-                '}';
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 }
